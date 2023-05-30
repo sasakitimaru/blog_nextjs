@@ -1,0 +1,19 @@
+.home-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .home-post-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+}
+.home-h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
