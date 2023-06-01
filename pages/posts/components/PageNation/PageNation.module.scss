@@ -1,0 +1,27 @@
+.pageNation-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    // margin: 20px 0;
+    .pageNation-bottun {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        margin: 0 5px;
+        border-color: #ffffff;
+        // border-width: 2px;
+        border-style: solid;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover {
+            color: #464646;
+            background-color: #ffffff;
+        }
+    }
+}

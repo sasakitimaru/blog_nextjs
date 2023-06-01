@@ -1,17 +1,10 @@
 import React from 'react'
 import styles from './SinglePost.module.scss'
 import Link from 'next/link';
+import { Post } from '../../lib/notionAPI';
+import Tags from './components/Tags';
 
-interface SinglePostProps {
-    id: string;
-    title: string;
-    date: string;
-    tags: string[];
-    description: string;
-    slug: string;
-}
-
-const SinglePost = ({ id, title, date, tags, description, slug }: SinglePostProps) => {
+const SinglePost = ({ id, title, date, tags, description, slug }: Post) => {
     return (
         <Link className={styles['post-a']} href={`/posts/${slug}`}>
             <section className={styles['single-post']}>
@@ -21,11 +14,7 @@ const SinglePost = ({ id, title, date, tags, description, slug }: SinglePostProp
                 </div>
                 <p className={styles['post-description']}>{description}</p>
                 <div className={styles['post-container']}>
-                    <div className={styles['post-tags']}>
-                        {tags.map((tag, index) => (
-                            <span key={index} className={styles['post-tag']}>{tag}</span>
-                        ))}
-                    </div>
+                    <Tags tags={tags} />
                     <span className={styles['post-readmore']}>Read more</span>
                 </div>
             </section>
