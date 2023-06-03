@@ -1,0 +1,22 @@
+.slug-back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    color: rgb(255, 255, 255);
+    background-color: #37267b;
+    // transition: color 0.3s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    padding: 0.5%;
+    border-radius: 5px;
+
+    &:hover {
+        color: #37267b;
+        background-color: #fff;
+        border-color: #37267b;
+        border-style: solid;
+        cursor: pointer;
+    }
+}

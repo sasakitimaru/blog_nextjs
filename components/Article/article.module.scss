@@ -10,8 +10,9 @@
     flex-direction: column;
     justify-self: center;
     align-self: center;
-    padding: 10px;
+    padding: 5%;
     width: 80%;
+    max-width: 800px;
     background-color: #b6b6b6;
     color: #2d2d2e;
 
@@ -39,6 +40,13 @@
         font-size: 18px;
     }
 
+    .article-postcontainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
     .article-readmore {
         display: flex;
         justify-content: flex-end;
@@ -52,13 +60,28 @@
         }
     }
 
-    .article-back {
-        display: inline-block;
-        color: #2d2d2e;
-        transition: color 0.3s ease;
+    .article-share-title{
+        align-self: center;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        padding: 0 20px;
+        border-bottom: 2px solid #493599;
+    }
 
-        &:hover {
-            color: #6a6a6a;
+    .article-share-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        
+
+        .article-share{
+            padding: 0 10px;
+
+            &:hover {
+                transform: translateY(-5px);
+            }
         }
     }
 }

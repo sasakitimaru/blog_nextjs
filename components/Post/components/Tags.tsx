@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Tag } from '../../../lib/notionAPI'
 import styles from './Tags.module.scss'
+import Link from 'next/link'
 interface TagProps {
     tags: Tag[]
 }
@@ -32,11 +33,17 @@ const Tags = ({ tags }: TagProps) => {
     }, [tags]);
 
     return (
-        <div className={styles['post-tags']}>
+        <button className={styles['post-tags']}>
             {tags.map((tag, index) => (
-                <span key={index} style={{ backgroundColor: adjustedColors[tag.color] }} className={styles['post-tag']}>{tag.name}</span>
+                <Link
+                    href={`/posts/tag/${tag.name}/page/1`}
+                    key={index}
+                    style={{ backgroundColor: adjustedColors[tag.color] }}
+                    className={styles['post-tag']}>
+                    {tag.name}
+                </Link>
             ))}
-        </div>
+        </button>
     )
 }
 

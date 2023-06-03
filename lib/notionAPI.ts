@@ -33,6 +33,18 @@ export const getAllPosts: GetAllPosts = async () => {
     const posts = await notion.databases.query({
         database_id: process.env.NOTION_DATABASE_ID,
         page_size: 100,
+        filter: {
+            property: 'Published',
+            checkbox: {
+                equals: true,
+            },
+        },
+        sorts: [
+            {
+                property: 'Date',
+                direction: 'descending',
+            },
+        ],
     });
     const allPosts = posts.results;
     return allPosts.map((post) => {
@@ -73,10 +85,14 @@ export const getSinglePost = async (slug) => {
     };
 };
 
-// export const getPostsForTopPage = async (pageNum,pageSize?) => {
-//     pageSize = pageSize || 4;
-//     const currentPageNum = pageNum + pageSize;
-//     const allPosts = await getAllPosts();
-//     const slicedPost = allPosts.slice(currentPageNum, currentPageNum + pageSize);
-//     return slicedPost;
-// };
+export const getAllTags = async () => {
+    const posts = await getAllPosts();
+    const allTags = posts.map((post) => post.tags);
+    const mergedTags = [].concat.apply([], allTags);
+    const uniqueTags = mergedTags.filter((tag, index, self) => {
+        return index === self.findIndex((t) => (
+            t.name === tag.name
+        ));
+    });
+    return uniqueTags;
+}

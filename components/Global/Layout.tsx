@@ -4,13 +4,16 @@ import Head from 'next/head'
 import styles from './Layout.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { Tag } from '../../lib/notionAPI';
+import Tags from '../Post/components/Tags'
 
 type Props = {
   children?: ReactNode
   title?: string
+  allTags?: Tag[];
 }
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => {
+const Layout = ({ children, title = 'sasakitiDev', allTags }: Props) => {
   const headerRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [lastScrollTop, setLastScrollTop] = useState(0);
@@ -23,12 +26,16 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-      setHeaderVisible(currentScrollTop <= 0 || currentScrollTop < lastScrollTop);
-      setLastScrollTop(currentScrollTop);
+      if (typeof window !== 'undefined') {
+        const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+        setHeaderVisible(currentScrollTop <= 0 || currentScrollTop < lastScrollTop);
+        setLastScrollTop(currentScrollTop);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
   }, [lastScrollTop]);
   return (
     <div>
@@ -42,10 +49,10 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
           <nav className={styles['layout-nav']}>
             <Link href="/">Home</Link>
             <div className={styles['layout-iconContainer']}>
-              <Link href="https://twitter.com/yourusername">
+              <Link href="https://twitter.com/ado_fuku0312">
                 <FontAwesomeIcon icon={faTwitter} size="1x" className={styles['layout-icon']} />
               </Link>
-              <Link href="https://github.com/yourusername">
+              <Link href="https://github.com/sasakitimaru">
                 <FontAwesomeIcon icon={faGithub} size="1x" />
               </Link>
             </div>
@@ -59,7 +66,25 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
       </div>
       <footer>
         <hr />
-        <span>I'm here to stay (Footer)</span>
+        <div className={styles['layout-footer']}>
+          <div className={styles['layout-container']}>
+            <div className={styles['search-container']}>
+              <h2 className={styles['search-title']}>記事の検索</h2>
+            </div>
+            <div className={styles['layout-inputcontainer']}>
+              <input className={styles['layout-input']} type="text" placeholder="Serch for article" />
+              <button className={styles['layout-button']}>検索</button>
+            </div>
+          </div>
+          <div className={styles['layout-tags']}>
+            <div className={styles['layout-container']}>
+              <div className={styles['search-container']}>
+                <h2 className={styles['search-title']}>タグの検索</h2>
+              </div>
+              {allTags && <Tags tags={allTags} />}
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   )
