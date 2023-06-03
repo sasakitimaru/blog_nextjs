@@ -1,0 +1,87 @@
+.article-a {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.article-container {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-self: center;
+    padding: 5%;
+    width: 80%;
+    max-width: 800px;
+    background-color: #b6b6b6;
+    color: #2d2d2e;
+
+    .article-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .article-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        border-bottom: 2px solid #493599;
+    }
+
+    .article-date {
+        font-size: 14px;
+        color: #888;
+    }
+
+    .article-description {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+
+    .article-postcontainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .article-readmore {
+        display: flex;
+        justify-content: flex-end;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+        .article-readmore {
+            opacity: 1;
+        }
+    }
+
+    .article-share-title{
+        align-self: center;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        padding: 0 20px;
+        border-bottom: 2px solid #493599;
+    }
+
+    .article-share-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        
+
+        .article-share{
+            padding: 0 10px;
+
+            &:hover {
+                transform: translateY(-5px);
+            }
+        }
+    }
+}

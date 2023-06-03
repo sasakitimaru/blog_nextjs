@@ -1,35 +1,29 @@
 import React from 'react'
 import styles from './SinglePost.module.scss'
-import Link from 'next/link';
+import { Post } from '../../lib/notionAPI';
+import Tags from './components/Tags';
+import { useRouter } from 'next/router';
 
-interface SinglePostProps {
-    id: string;
-    title: string;
-    date: string;
-    tags: string[];
-    description: string;
-    slug: string;
-}
+const SinglePost = ({ id, title, date, tags, description, slug }: Post) => {
+    const router = useRouter();
 
-const SinglePost = ({ id, title, date, tags, description, slug }: SinglePostProps) => {
+    const handleClick = () => {
+        router.push(`/posts/${slug}`);
+    };
     return (
-        <Link className={styles['post-a']} href={`/posts/${slug}`}>
+        <div className={styles['post-a']} onClick={handleClick}>
             <section className={styles['single-post']}>
-                <div className={styles['post-container']}>
-                    <span className={styles['post-title']}>{title}</span>
+                <div className={styles['post-dateandtitle']}>
                     <div className={styles['post-date']}>{date}</div>
+                    <span className={styles['post-title']}>{title}</span>
                 </div>
-                <p className={styles['post-description']}>{description}</p>
+                <div className={styles['post-description']}>{description}</div>
                 <div className={styles['post-container']}>
-                    <div className={styles['post-tags']}>
-                        {tags.map((tag, index) => (
-                            <span key={index} className={styles['post-tag']}>{tag}</span>
-                        ))}
-                    </div>
+                    <Tags tags={tags} />
                     <span className={styles['post-readmore']}>Read more</span>
                 </div>
             </section>
-        </Link>
+        </div>
     )
 }
 

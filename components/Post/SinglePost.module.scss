@@ -13,12 +13,18 @@
     border-radius: 5px;
     background-color: #493599;
     box-shadow: 0 0 10px rgba(190, 190, 190, 0.1);
-    max-width: 800px;
+    max-width: 1024px;
     max-height: 150px;
+    overflow: hidden;
     width: 100%;
 
     &:hover {
         box-shadow: 0 0 10px rgba(239, 239, 239, 0.3);
+    }
+
+    .post-dateandtitle{
+        display: flex;
+        flex-direction: column;
     }
 
     .post-container {
@@ -32,6 +38,13 @@
         font-size: 24px;
         font-weight: 700;
         margin-bottom: 10px;
+        // white-space: nowrap;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+
+        @media (max-width: 768px) {
+            font-size: 18px;
+        }
     }
 
     .post-date {
@@ -39,24 +52,16 @@
         color: #888;
     }
 
-    .post-tags {
-        display: flex;
-        align-items: flex-start;
-        color: #2d2d2e;
-        font-size: 10px;
-    }
-
-    .post-tag {
-        font-family: 'Roboto', sans-serif;
-        background-color: rgb(180, 176, 176);
-        border-radius: 5px;
-        margin-right: 5px;
-        padding: 5px;
-    }
-
     .post-description {
-        margin-top: 10px;
+        margin-bottom: 10px;
         font-size: 18px;
+        white-space: nowrap;
+        overflow-x: hidden;
+        overflow-y: visible;
+        text-overflow: ellipsis;
+        @media screen and (max-width: 768px) {
+            font-size: 14px;
+        }
     }
 
     .post-readmore {

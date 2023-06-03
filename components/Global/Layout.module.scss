@@ -1,7 +1,188 @@
+.layout-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    transition: top 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+
+    .layout-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .layout-nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: #000000;
+            border-width: 10px;
+            width: 80%;
+
+            a {
+                display: flex;
+                justify-content: center;
+                color: #fff;
+                width: 10%;
+                font-size: 24px;
+                font-weight: 700;
+                padding: 10px;
+
+                &:hover {
+                    // box-shadow: 0 0 10px rgba(239, 239, 239, 0.3);
+                    // transition: all 0.3s ease-in-out;
+                    color: rgb(147, 146, 146);
+                    border-bottom: 2px solid rgb(147, 146, 146);
+                }
+            }
+
+            .layout-iconContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 10px;
+                padding: 10px;
+
+                a:hover {
+                    border-bottom: none;
+                }
+
+                .layout-icon {
+                    padding-right: 20px;
+                }
+            }
+        }
+    }
+}
+
+.header-hidden {
+    top: -100px;
+}
+
+.layout-children {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout-footer {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    @media (max-width: 800px) {
+        flex-direction: column;
+    }
+
+    .layout-inputcontainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        background-color: #fff;
+        /* 背景色を同じにする */
+        border: 1px solid #ccc;
+        /* 共通の境界線を設定 */
+        border-radius: 5px;
+        /* 共通のボーダーラディウスを設定 */
+
+        .layout-input {
+            border-top-left-radius: 5px;
+            /* 元のborder-radiusを左上と左下に適用 */
+            border-bottom-left-radius: 5px;
+            border: none;
+            /* 個々の入力要素の境界線を削除 */
+            padding: 5px;
+            flex-grow: 1;
+
+            /* 入力エリアを全幅に広げる */
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .layout-button {
+            border-top-right-radius: 5px;
+            /* 元のborder-radiusを右上と右下に適用 */
+            border-bottom-right-radius: 5px;
+            border: none;
+            /* 個々のボタン要素の境界線を削除 */
+            border-left: 1px solid #545454;
+            /* ボタンの左側に境界線を設定 */
+            width: 15%;
+            padding: 5px;
+            background-color: #fff;
+            /* ボタンの背景色を同じにする */
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .layout-tags {
+        margin-left: 5%;
+        width: 100%;
+        @media screen and (max-width: 800px) {
+            margin-left: 0;
+            margin-top: 5%;
+        }
+    }
+}
+
 .layout-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-//   width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.search-container {
+    text-align: center;
+    position: relative;
+    margin: 30px 0;
+
+
+    .search-title {
+        display: inline-block;
+        // background: #fff;
+        padding: 0 10px;
+        position: relative;
+        z-index: 1;
+    }
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background: #ffffff;
+        @media (max-width: 800px) {
+            width: 80%;
+        }
+    }
+
+    &::before {
+        left: -100%;
+        @media screen and (max-width: 800px) {
+            left: -80%;
+        }
+    }
+
+    &::after {
+        right: -100%;
+        @media screen and (max-width: 800px) {
+            right: -80%;
+        }
+    }
 }
