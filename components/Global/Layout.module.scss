@@ -6,6 +6,7 @@
     padding-left: 2%;
     padding-right: 2%;
     transition: top 0.3s ease-in-out;
+    z-index: 1000;
     backdrop-filter: blur(10px);
 
     .layout-title {
