@@ -368,6 +368,7 @@
 .notion-header {
   background: #b6b6b6;
   backdrop-filter: saturate(180%) blur(16px);
+  display: none;
 }
 
 .dark-mode .notion-header {
