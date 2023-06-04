@@ -3,6 +3,10 @@
     align-items: center;
     display: flex;
     justify-content: center;
+    &:hover {
+        transform: translateY(-5px);
+        cursor: pointer;
+    }
 }
 
 .single-post {

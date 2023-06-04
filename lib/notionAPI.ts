@@ -1,5 +1,6 @@
 import { Client } from '@notionhq/client';
-import { NotionToMarkdown } from 'notion-to-md';
+import { NotionToMarkdown } from 'notion-to-md'
+import { NotionAPI } from 'notion-client';
 
 export interface Tag {
     id: string;
@@ -95,4 +96,9 @@ export const getAllTags = async () => {
         ));
     });
     return uniqueTags;
+}
+
+export const getPageDetails = async (id: string) => {
+    const notion = new NotionAPI();
+    return await notion.getPage(id);
 }
