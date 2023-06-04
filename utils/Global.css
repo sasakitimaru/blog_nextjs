@@ -22,4 +22,13 @@ img {
 p {
   font-size: 1.0rem;
   line-height: 2.0rem;
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+  }
+}
+
+* {
+  font-family: 'Montserrat', sans-serif;
 }
