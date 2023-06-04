@@ -15,6 +15,11 @@
     max-width: 800px;
     background-color: #b6b6b6;
     color: #2d2d2e;
+    @media screen  and (max-width: 768px){
+        width: 90%;
+        padding: 20px;
+        
+    }
 
     .article-header {
         display: flex;
@@ -40,24 +45,11 @@
         font-size: 18px;
     }
 
-    .article-postcontainer{
+    .article-tag{
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-    }
-
-    .article-readmore {
-        display: flex;
-        justify-content: flex-end;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    &:hover {
-        .article-readmore {
-            opacity: 1;
-        }
     }
 
     .article-share-title{

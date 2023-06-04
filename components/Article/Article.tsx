@@ -23,7 +23,7 @@ const Article = ({ post, mdString }: ArticleProps) => {
         <article className={styles['article-container']}>
             <div className={styles['article-title']}>{post.title}</div>
             <div className={styles['article-date']}>{post.date}</div>
-            <div className={styles['article-postcontainer']}>
+            <div className={styles['article-tag']}>
                 <Tags tags={post.tags} />
             </div>
             <ReactMarkdown
