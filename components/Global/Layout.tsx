@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import styles from './Layout.module.scss'
@@ -6,18 +6,62 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { Tag } from '../../lib/notionAPI';
 import Tags from '../Post/components/Tags'
+import { NotionPageHeader } from './components/NotionPageHeader'
+import { NotionRenderer } from 'react-notion-x'
+import { ExtendedRecordMap } from '../../lib/types'
+import { isSearchEnabled } from '../../lib/config'
+import { searchNotion } from '../../lib/search-notion'
+import dynamic from 'next/dynamic'
 
 type Props = {
   children?: ReactNode
   title?: string
   allTags?: Tag[];
+  recordMap?: ExtendedRecordMap;
 }
+const Collection = () => null;
+// dynamic(() =>
+// import('react-notion-x/build/third-party/collection').then(
+//   (m) => m.Collection
+// )
+// )
 
-const Layout = ({ children, title = 'sasakitiDev', allTags }: Props) => {
+const CollectionRow = () => null;
+
+const Equation = () => null;
+// dynamic(() =>
+// import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
+// )
+const MyBody = () => null;
+const Modal = dynamic(
+  () =>
+    import('react-notion-x/build/third-party/modal').then((m) => {
+      m.Modal.setAppElement('.notion-viewport')
+      return m.Modal
+    }),
+  {
+    ssr: false
+  }
+)
+
+const Layout = ({ children, title = 'sasakitiDev', allTags, recordMap }: Props) => {
   const headerRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [headerVisible, setHeaderVisible] = useState(true);
+  const block = recordMap.block['53abd034-4cd0-4120-9af4-8506f88b1764'].value;
+  const components = useMemo(
+    () => ({
+      nextLink: Link,
+      Collection,
+      Equation,
+      CollectionRow,
+      Modal,
+      // pageHeader: NotionPageHeader,
+    }),
+    []
+  );
+
   useEffect(() => {
     if (headerRef.current) {
       setHeaderHeight(headerRef.current.clientHeight);
@@ -60,6 +104,15 @@ const Layout = ({ children, title = 'sasakitiDev', allTags }: Props) => {
         </div>
       </header>
       <div style={{ marginTop: headerHeight }}>
+        <NotionRenderer
+          recordMap={recordMap}
+          fullPage={true}
+          header={<NotionPageHeader block={block}/>}
+          components={components}
+          searchNotion={isSearchEnabled ? searchNotion : null}
+          disableHeader={true}
+          bodyClassName='notion-hidden'
+        />
         <div className={styles['layout-children']}>
           {children}
         </div>
