@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     return {
       props: {
         post: post.metadata,
-        recordMap: response.recordMap
+        recordMap: ('recordMap' in response) ? response.recordMap : null,
       },
       revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
     }
@@ -44,22 +44,22 @@ export async function getStaticPaths() {
 
   const siteMap = await getSiteMap()
 
+
   const staticPaths = {
-    paths: Object.keys(siteMap.canonicalPageMap).map((pageId) => ({
-      params: {
-        pageId
-      }
-    })),
+    paths: Object.keys(siteMap.canonicalPageMap)
+      .map(pageId => ({
+        params: {
+          pageId
+        }
+      })),
     // paths: [],
     fallback: true
   }
 
-  console.log(staticPaths.paths)
   return staticPaths
 }
 
 export default function NotionDomainDynamicPage(props) {
-  console.log('props_test_now:', props)
   return (
     <Layout title={'test'} allTags={null}>
       <Article post={props.post} recordMap={props.recordMap} />
