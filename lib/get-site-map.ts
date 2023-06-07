@@ -35,7 +35,9 @@ async function getAllPagesImpl(
 ): Promise<Partial<types.SiteMap>> {
   const getPage = async (pageId: string, ...args) => {
     // console.log('\nnotion getPage', uuidToId(pageId))
-    if (pageId === process.env.NOTION_DATABASE_ID) {
+
+    //ルートページの除外、pageloadErrorの回避
+    if (pageId === '284339fc-555c-49cd-aa97-55c35bea157f') {
       return null
     }
     return notion.getPage(pageId, ...args)
