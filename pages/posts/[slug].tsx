@@ -44,7 +44,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const Post = ({ post, mdString, allTags, recordMap }: PostProps) => {
-  console.log(mdString);
   return (
     <Layout title={post.title} allTags={allTags}>
       <Article post={post} mdString={mdString} recordMap={recordMap}/>
