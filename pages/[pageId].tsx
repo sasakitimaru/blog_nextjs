@@ -44,12 +44,15 @@ export async function getStaticPaths() {
 
   const siteMap = await getSiteMap()
 
+
   const staticPaths = {
-    paths: Object.keys(siteMap.canonicalPageMap).map((pageId) => ({
-      params: {
-        pageId
-      }
-    })),
+    paths: Object.keys(siteMap.canonicalPageMap)
+      .filter(pageId => pageId !== process.env.NOTION_DATABASE_ID)
+      .map(pageId => ({
+        params: {
+          pageId
+        }
+      })),
     // paths: [],
     fallback: true
   }
