@@ -47,7 +47,7 @@ export async function getStaticPaths() {
 
   const staticPaths = {
     paths: Object.keys(siteMap.canonicalPageMap)
-      .filter(pageId => pageId !== process.env.NOTION_DATABASE_ID)
+      .filter(pageId => pageId !== '284339fc-555c-49cd-aa97-55c35bea157f')
       .map(pageId => ({
         params: {
           pageId
