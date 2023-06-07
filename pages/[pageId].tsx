@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     return {
       props: {
         post: post.metadata,
-        recordMap: response.recordMap
+        recordMap: ('recordMap' in response) ? response.recordMap : null,
       },
       revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
     }
