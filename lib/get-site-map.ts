@@ -34,7 +34,10 @@ async function getAllPagesImpl(
   rootNotionSpaceId: string
 ): Promise<Partial<types.SiteMap>> {
   const getPage = async (pageId: string, ...args) => {
-    console.log('\nnotion getPage', uuidToId(pageId))
+    // console.log('\nnotion getPage', uuidToId(pageId))
+    if (pageId === process.env.NOTION_DATABASE_ID) {
+      return null
+    }
     return notion.getPage(pageId, ...args)
   }
 

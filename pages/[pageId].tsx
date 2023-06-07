@@ -47,7 +47,6 @@ export async function getStaticPaths() {
 
   const staticPaths = {
     paths: Object.keys(siteMap.canonicalPageMap)
-      .filter(pageId => pageId !== '284339fc-555c-49cd-aa97-55c35bea157f')
       .map(pageId => ({
         params: {
           pageId
@@ -57,12 +56,10 @@ export async function getStaticPaths() {
     fallback: true
   }
 
-  console.log(staticPaths.paths)
   return staticPaths
 }
 
 export default function NotionDomainDynamicPage(props) {
-  console.log('props_test_now:', props)
   return (
     <Layout title={'test'} allTags={null}>
       <Article post={props.post} recordMap={props.recordMap} />
