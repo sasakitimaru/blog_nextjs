@@ -14,11 +14,10 @@ export const searchNotion = pMemoize(searchNotionImpl, {
 async function searchNotionImpl(
   params: types.SearchParams
 ): Promise<types.SearchResults> {
-  console.log('<<< searchNotion', params)
-  // const new_params = { query: params.query, ancestorId: '53abd034-4cd0-4120-9af4-8506f88b1764' }
+  const new_params = { query: params.query, ancestorId: '284339fc555c49cdaa9755c35bea157f' }
   return fetch(api.searchNotion, {
     method: 'POST',
-    body: JSON.stringify(params),
+    body: JSON.stringify(new_params),
     headers: {
       'content-type': 'application/json'
     }

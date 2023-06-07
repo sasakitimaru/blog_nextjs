@@ -10,6 +10,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@keyvhq/core": "^2.0.0",
+    "@keyvhq/redis": "^2.0.0",
     "@notionhq/client": "^2.2.5",
     "expiry-map": "^2.0.0",
     "isomorphic-unfetch": "^4.0.2",

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import styles from './article.module.scss'
 import Link from 'next/link';
 import { Post } from '../../lib/notionAPI';
@@ -26,7 +26,7 @@ import { searchNotion } from '../../lib/search-notion';
 
 interface ArticleProps {
     post: Post;
-    mdString: MdStringObject;
+    mdString?: MdStringObject;
     recordMap: ExtendedRecordMap;
 }
 
@@ -101,8 +101,8 @@ const propertyTextValue = (
 }
 const Article = ({ post, mdString, recordMap }: ArticleProps) => {
     const router = useRouter();
+    const [headerHeight, setHeaderHeight] = useState(0);
     const currentURL = 'https://www.kurimatsugpt.com' + router.asPath;
-    console.log('recordMap', recordMap)
     const components = React.useMemo(
         () => ({
             nextLink: Link,
@@ -121,27 +121,29 @@ const Article = ({ post, mdString, recordMap }: ArticleProps) => {
     )
     // const block = recordMap?.block?.[keys[0]]?.value
     return (
-        <article className={styles['article-container']}>
+        <article className={styles['article-container']} style={{marginTop: headerHeight}}>
             <div className={styles['article-tag']}>
-                <Tags tags={post.tags} />
+                {post && <Tags tags={post.tags} />}
             </div>
             {/* <div className={styles['article-notion-container']}> */}
             <NotionRenderer
                 recordMap={recordMap}
                 fullPage={true}
                 darkMode={false}
+                header={<NotionPageHeader block={null} setHeaderHeight={setHeaderHeight} />}
                 components={components}
+                disableHeader={true}
                 searchNotion={isSearchEnabled ? searchNotion : null}
             />
             {/* </div> */}
             <div className={styles['article-share-title']}>Share</div>
             <div className={styles['article-share-container']}>
-                <TwitterShareButton url={currentURL} title={post.title}>
+                <TwitterShareButton url={currentURL} >
                     <div className={styles['article-share']}>
                         <FontAwesomeIcon icon={faTwitter} size='2x' color="#1DA1F2" />
                     </div>
                 </TwitterShareButton>
-                <LineShareButton url={currentURL} title={post.title}>
+                <LineShareButton url={currentURL} >
                     <div className={styles['article-share']}>
                         <FontAwesomeIcon icon={faLine} size='2x' color="#00c300" />
                     </div>
@@ -151,7 +153,7 @@ const Article = ({ post, mdString, recordMap }: ArticleProps) => {
                         <FontAwesomeIcon icon={faFacebook} size='2x' color="#1877F2" />
                     </div>
                 </FacebookShareButton>
-                <InstapaperShareButton url={currentURL} title={post.title}>
+                <InstapaperShareButton url={currentURL} >
                     <div className={styles['article-share']}>
                         <FontAwesomeIcon icon={faInstagram} size='2x' color="#C13584" />
                     </div>

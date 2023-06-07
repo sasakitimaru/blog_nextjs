@@ -45,11 +45,19 @@ const Modal = dynamic(
 )
 
 const Layout = ({ children, title = 'sasakitiDev', allTags, recordMap }: Props) => {
-  const headerRef = useRef(null);
+  const rootPageID = process.env.NOTION_ROOT_PAGE_ID;
   const [headerHeight, setHeaderHeight] = useState(0);
-  const [lastScrollTop, setLastScrollTop] = useState(0);
-  const [headerVisible, setHeaderVisible] = useState(true);
-  const block = recordMap.block['53abd034-4cd0-4120-9af4-8506f88b1764'].value;
+  console.log('rootPageID', rootPageID)
+  console.log('rootpagetype', typeof rootPageID)
+  useEffect(() => {
+    let childElement = document.querySelector('.notion-hidden');
+    let parentElement = null;
+    if (childElement) {
+      parentElement = childElement.parentElement;
+      parentElement.style.display = 'none';
+    }
+  }, [])
+  // const block = recordMap.block['53abd034-4cd0-4120-9af4-8506f88b1764'].value;
   const components = useMemo(
     () => ({
       nextLink: Link,
@@ -62,52 +70,18 @@ const Layout = ({ children, title = 'sasakitiDev', allTags, recordMap }: Props) 
     []
   );
 
-  useEffect(() => {
-    if (headerRef.current) {
-      setHeaderHeight(headerRef.current.clientHeight);
-    }
-  }, [headerRef]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (typeof window !== 'undefined') {
-        const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-        setHeaderVisible(currentScrollTop <= 0 || currentScrollTop < lastScrollTop);
-        setLastScrollTop(currentScrollTop);
-      }
-    };
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-  }, [lastScrollTop]);
   return (
-    <div>
+    <div style={{ marginTop: headerHeight }}>
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header ref={headerRef} className={`${styles['layout-header']} ${headerVisible ? '' : styles['header-hidden']}`}>
-        <div className={styles['layout-title']}>
-          <nav className={styles['layout-nav']}>
-            <Link href="/">Home</Link>
-            <div className={styles['layout-iconContainer']}>
-              <Link href="https://twitter.com/ado_fuku0312">
-                <FontAwesomeIcon icon={faTwitter} size="1x" className={styles['layout-icon']} />
-              </Link>
-              <Link href="https://github.com/sasakitimaru">
-                <FontAwesomeIcon icon={faGithub} size="1x" />
-              </Link>
-            </div>
-          </nav>
-        </div>
-      </header>
-      <div style={{ marginTop: headerHeight }}>
+      <div>
         <NotionRenderer
           recordMap={recordMap}
           fullPage={true}
-          header={<NotionPageHeader block={block}/>}
+          header={<NotionPageHeader block={null} setHeaderHeight={setHeaderHeight} />}
           components={components}
           searchNotion={isSearchEnabled ? searchNotion : null}
           disableHeader={true}

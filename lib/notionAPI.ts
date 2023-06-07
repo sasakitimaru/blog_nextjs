@@ -86,6 +86,18 @@ export const getSinglePost = async (slug) => {
     };
 };
 
+export const getSearchedPosts = async (pageID) => {
+    const page = await notion.pages.retrieve({ page_id: pageID });
+    const md = await n2md.pageToMarkdown(page.id);
+    const mdString = n2md.toMarkdownString(md);
+    const metadata = getPageMetaData(page);
+    return {
+        metadata,
+        mdString,
+    };
+};
+
+
 export const getAllTags = async () => {
     const posts = await getAllPosts();
     const allTags = posts.map((post) => post.tags);
