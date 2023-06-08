@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import * as types from '../../lib/types'
 import { search } from '../../lib/notion'
+import { getAllPosts } from '../../lib/notionAPI'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -12,6 +13,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   console.log('<<< lambda search-notion', searchParams)
   const results = await search(searchParams)
+  const allPosts = await getAllPosts();
+  const allPostIds = allPosts.map(post => post.id);
+  results.results = results.results.filter(result => allPostIds.includes(result.id));
+
   console.log('>>> lambda search-notion', results)
 
   res.setHeader(
