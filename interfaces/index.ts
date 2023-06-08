@@ -4,7 +4,11 @@
 //
 // import { User } from 'path/to/interfaces';
 
-export type User = {
-  id: number
-  name: string
+import { Post, Tag } from "../lib/notionAPI";
+import { ExtendedRecordMap } from "../lib/types";
+
+export interface MapDetail {
+  allPosts: Post[];
+  allTags?: Tag[];
+  recordMap: ExtendedRecordMap;
 }

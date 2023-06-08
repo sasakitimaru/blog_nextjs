@@ -8,7 +8,7 @@ import { PageProps, Params } from '../lib/types'
 import Layout from '../components/Global/Layout'
 import Article from '../components/Article/Article'
 import Link from 'next/link'
-import { getSearchedPosts } from '../lib/notionAPI'
+import { getAllTags, getSearchedPosts } from '../lib/notionAPI'
 
 export const getStaticProps: GetStaticProps<PageProps, Params> = async (
   context
@@ -18,10 +18,12 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
   try {
     const response = await resolveNotionPage(domain, rawPageId)
     const post = await getSearchedPosts(rawPageId)
+    const allTags = await getAllTags()
     return {
       props: {
         post: post.metadata,
         recordMap: ('recordMap' in response) ? response.recordMap : null,
+        allTags,
       },
       revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
     }
@@ -61,7 +63,7 @@ export async function getStaticPaths() {
 
 export default function NotionDomainDynamicPage(props) {
   return (
-    <Layout title={'test'} allTags={null}>
+    <Layout title={`ささきちDev | ${props.post?.title}`} allTags={props.allTags}>
       <Article post={props.post} recordMap={props.recordMap} />
       {/* <Link className={styles['slug-back']} href="/">
         <div >←記事一覧に戻る</div>
