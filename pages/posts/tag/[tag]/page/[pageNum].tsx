@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Layout from '../../../../../components/Global/Layout';
-import { Post, Tag, getAllPosts, getAllTags } from '../../../../../lib/notionAPI';
+import { Post, Tag, getAllPosts, getAllTags, getPageDetails } from '../../../../../lib/notionAPI';
 import SinglePost from '../../../../../components/Post/SinglePost';
 import styles from '../../../../Home.module.scss';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import PageNation from '../../../../../components/PageNation/PageNation';
 import Tags from '../../../../../components/Post/components/Tags';
+import { MapDetail } from '../../../../../interfaces';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const response = await getAllPosts();
@@ -30,26 +31,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const allPosts = await getAllPosts();
     const allTags = await getAllTags();
-    //   console.log(params)
+    const recordMap = await getPageDetails('53abd0344cd041209af48506f88b1764');
     return {
         props: {
             allPosts, // allPosts: allPostsと同じ
             tag: params.tag,
             pageNum: params.pageNum,
             allTags,
+            recordMap,
         },
         revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
     };
 };
 
-interface ArticleListPerPageNumProps {
-    allPosts: Post[];
+interface ArticleListPerPageNumProps extends MapDetail{
     tag: string;
     pageNum: string;
-    allTags: Tag[];
 }
 
-const ArticleListPerPageNum = ({ allPosts, tag, pageNum, allTags }: ArticleListPerPageNumProps) => {
+const ArticleListPerPageNum = ({ allPosts, tag, pageNum, allTags, recordMap }: ArticleListPerPageNumProps) => {
     const pageNumToShow = 8;
     const filterPostByName = (tags: Tag[]) => {
         return tags.some((_tag) => _tag.name === tag)
@@ -64,7 +64,7 @@ const ArticleListPerPageNum = ({ allPosts, tag, pageNum, allTags }: ArticleListP
     const sumPageNum = Math.ceil(filterdPosts.length / pageNumToShow);
 
     return (
-        <Layout title={`ささきちDev | タグ:${tag}`} allTags={allTags}>
+        <Layout title={`ささきちDev | タグ:${tag}`} allTags={allTags} recordMap={recordMap}>
             <main className={styles['home-container']}>
                 <div className={styles['home-filterdtagcontainer']}>
                     <p>{`検索タグ：`}</p>

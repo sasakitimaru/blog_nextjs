@@ -6,6 +6,7 @@ import styles from './Home.module.scss'
 import { GetStaticProps } from 'next';
 import PageNation from '../components/PageNation/PageNation';
 import { ExtendedRecordMap } from '../lib/types';
+import { MapDetail } from '../interfaces';
 
 export const getStaticProps: GetStaticProps = async (pageNum) => {
   const allPosts = await getAllPosts();
@@ -22,14 +23,8 @@ export const getStaticProps: GetStaticProps = async (pageNum) => {
   };
 };
 
-interface HomeProps {
-  allPosts: Post[];
-  allTags: Tag[];
-  recordMap: ExtendedRecordMap;
-}
-const Home = ({ allPosts,allTags,recordMap }) => {
+const Home = ({ allPosts,allTags,recordMap }: MapDetail) => {
   const sumPageNum = Math.ceil(allPosts.length / 8);
-  console.log('recordMap_index',recordMap)
   return (
     <Layout title="ささきちDev" allTags={allTags} recordMap={recordMap}>
       <main className={styles['home-container']}>

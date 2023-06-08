@@ -14,7 +14,15 @@ export const searchNotion = pMemoize(searchNotionImpl, {
 async function searchNotionImpl(
   params: types.SearchParams
 ): Promise<types.SearchResults> {
-  const new_params = { query: params.query, ancestorId: '284339fc555c49cdaa9755c35bea157f' }
+  const new_params = { 
+    query: params.query, 
+    ancestorId: '284339fc555c49cdaa9755c35bea157f', 
+    filters: {
+      isDeletedOnly: false,
+      excludeTemplates: false,
+      isNavigableOnly: true,
+    },
+  }
   return fetch(api.searchNotion, {
     method: 'POST',
     body: JSON.stringify(new_params),

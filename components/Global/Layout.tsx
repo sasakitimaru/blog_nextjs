@@ -12,6 +12,7 @@ import { ExtendedRecordMap } from '../../lib/types'
 import { isSearchEnabled } from '../../lib/config'
 import { searchNotion } from '../../lib/search-notion'
 import dynamic from 'next/dynamic'
+import Profile from '../Profile.tsx/Profile'
 
 type Props = {
   children?: ReactNode
@@ -77,7 +78,7 @@ const Layout = ({ children, title = 'sasakitiDev', allTags, recordMap }: Props) 
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div>
+      <div className={styles['layout-container']}>
         <NotionRenderer
           recordMap={recordMap}
           fullPage={true}
@@ -87,28 +88,31 @@ const Layout = ({ children, title = 'sasakitiDev', allTags, recordMap }: Props) 
           disableHeader={true}
           bodyClassName='notion-hidden'
         />
-        <div className={styles['layout-children']}>
-          {children}
-        </div>
+        <main className={styles['layout-main']}>
+          <div className={styles['layout-children']}>
+            {children}
+          </div>
+          <Profile />
+        </main>
       </div>
       <footer>
         <hr />
         <div className={styles['layout-footer']}>
-          <div className={styles['layout-container']}>
-            <div className={styles['search-container']}>
-              <h2 className={styles['search-title']}>記事の検索</h2>
-            </div>
-            <div className={styles['layout-inputcontainer']}>
-              <input className={styles['layout-input']} type="text" placeholder="Serch for article" />
-              <button className={styles['layout-button']}>検索</button>
-            </div>
-          </div>
           <div className={styles['layout-tags']}>
             <div className={styles['layout-container']}>
               <div className={styles['search-container']}>
                 <h2 className={styles['search-title']}>タグの検索</h2>
               </div>
               {allTags && <Tags tags={allTags} />}
+            </div>
+          </div>
+          <div className={styles['layout-container']}>
+            <div className={styles['search-container']}>
+              <h2 className={styles['search-title']}>関連記事</h2>
+            </div>
+            <div className={styles['layout-inputcontainer']}>
+              <input className={styles['layout-input']} type="text" placeholder="Serch for article" />
+              <button className={styles['layout-button']}>検索</button>
             </div>
           </div>
         </div>

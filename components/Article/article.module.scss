@@ -7,14 +7,14 @@
 
 .article-container {
     display: flex;
+    border-top: 1px solid #ccc;
     flex-direction: column;
     justify-self: center;
     align-self: center;
     padding: 10px;
     width: 80%;
     max-width: 800px;
-    background-color: #b6b6b6;
-    color: #2d2d2e;
+    // color: #2d2d2e;
     @media screen  and (max-width: 768px){
         width: 90%;
         padding: 20px;
