@@ -130,7 +130,6 @@ const Article = ({ post, mdString, recordMap }: ArticleProps) => {
                 recordMap={recordMap}
                 fullPage={true}
                 darkMode={false}
-                header={<NotionPageHeader block={null} setHeaderHeight={setHeaderHeight} />}
                 components={components}
                 disableHeader={true}
                 searchNotion={isSearchEnabled ? searchNotion : null}

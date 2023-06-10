@@ -5,6 +5,7 @@ import pMemoize from 'p-memoize'
 
 import * as types from './types'
 import { api } from './config'
+import { SearchResults } from '../interfaces'
 
 export const searchNotion = pMemoize(searchNotionImpl, {
   cacheKey: (args) => args[0]?.query,
@@ -13,28 +14,24 @@ export const searchNotion = pMemoize(searchNotionImpl, {
 
 async function searchNotionImpl(
   params: types.SearchParams
-): Promise<types.SearchResults> {
-  const new_params = { 
+): Promise<SearchResults> {
+  params = { 
     query: params.query, 
-    ancestorId: '284339fc555c49cdaa9755c35bea157f', 
-    filters: {
-      isDeletedOnly: false,
-      excludeTemplates: false,
-      isNavigableOnly: true,
-    },
+    ancestorId: null,
   }
   return fetch(api.searchNotion, {
     method: 'POST',
-    body: JSON.stringify(new_params),
+    body: JSON.stringify({query: params.query}),
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      'Authorization':  process.env.NOTION_TOKEN 
     }
   })
     .then((res) => {
       if (res.ok) {
         return res
       }
-
+      console.log('res',res)
       // convert non-2xx HTTP responses into errors
       const error: any = new Error(res.statusText)
       error.response = res
