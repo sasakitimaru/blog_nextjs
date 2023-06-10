@@ -2,11 +2,9 @@ import * as React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import * as types from 'notion-types'
-import cs from 'classnames'
-import { Breadcrumbs, Header, Search, useNotionContext } from 'react-notion-x'
-import { isSearchEnabled, navigationLinks, navigationStyle } from '../../../lib/config'
+import Search from './Search'
+import { isSearchEnabled } from '../../../lib/config'
 import styles from './styles.module.scss'
-import { searchNotion } from '../../../lib/search-notion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
 export const NotionPageHeader: React.FC<{
@@ -14,7 +12,6 @@ export const NotionPageHeader: React.FC<{
   setHeaderHeight?: (height: number) => void
 }> = ({ block, setHeaderHeight }) => {
   const headerRef = useRef(null);
-  const { components, mapPageUrl } = useNotionContext()
   // if (navigationStyle === 'default') {
   // return <Header block={block} />
   // }
@@ -53,7 +50,7 @@ export const NotionPageHeader: React.FC<{
               <FontAwesomeIcon icon={faGithub} size="lg" />
             </Link>
             <div className={styles['layout-search']}>
-              {isSearchEnabled && <Search block={block} title={null} />}
+              {isSearchEnabled && <Search block={block} />}
             </div>
           </div>
         </div>

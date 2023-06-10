@@ -1,18 +1,13 @@
-import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useMemo, createContext, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import styles from './Layout.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { Tag } from '../../lib/notionAPI';
 import Tags from '../Post/components/Tags'
 import { NotionPageHeader } from './components/NotionPageHeader'
-import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from '../../lib/types'
-import { isSearchEnabled } from '../../lib/config'
-import { searchNotion } from '../../lib/search-notion'
-import dynamic from 'next/dynamic'
 import Profile from '../Profile.tsx/Profile'
+import Modal from './components/Modal';
 
 type Props = {
   children?: ReactNode
@@ -33,21 +28,16 @@ const Equation = () => null;
 // dynamic(() =>
 // import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
 // )
-const MyBody = () => null;
-const Modal = dynamic(
-  () =>
-    import('react-notion-x/build/third-party/modal').then((m) => {
-      m.Modal.setAppElement('.notion-viewport')
-      return m.Modal
-    }),
-  {
-    ssr: false
-  }
-)
+
+export const ModalContext = createContext({
+  isModalVisible: false,
+  setModalVisible: (prev: boolean) => { }
+});
 
 const Layout = ({ children, title = 'sasakitiDev', allTags, recordMap }: Props) => {
   const rootPageID = process.env.NOTION_ROOT_PAGE_ID;
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [isModalVisible, setModalVisible] = useState(false);
   console.log('rootPageID', rootPageID)
   console.log('rootpagetype', typeof rootPageID)
   useEffect(() => {
@@ -79,15 +69,10 @@ const Layout = ({ children, title = 'sasakitiDev', allTags, recordMap }: Props) 
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className={styles['layout-container']}>
-        <NotionRenderer
-          recordMap={recordMap}
-          fullPage={true}
-          header={<NotionPageHeader block={null} setHeaderHeight={setHeaderHeight} />}
-          components={components}
-          searchNotion={isSearchEnabled ? searchNotion : null}
-          disableHeader={true}
-          bodyClassName='notion-hidden'
-        />
+        <ModalContext.Provider value={{ isModalVisible, setModalVisible }}>
+          <NotionPageHeader setHeaderHeight={setHeaderHeight} block={null} />
+          {isModalVisible && <Modal/>}
+        </ModalContext.Provider>
         <main className={styles['layout-main']}>
           <div className={styles['layout-children']}>
             {children}

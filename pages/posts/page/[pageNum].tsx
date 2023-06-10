@@ -53,16 +53,14 @@ const ArticleListPerPageNum = ({ allPosts, pageNum, allTags, recordMap }: Articl
                         className={styles['home-post-container']}
                         key={post.id}
                     >
-                        <div style={{display: 'block'}}>
-                            <SinglePost
-                                id={post.id}
-                                title={post.title}
-                                date={post.date}
-                                tags={post.tags}
-                                description={post.description}
-                                slug={post.slug}
-                            />
-                        </div>
+                        <SinglePost
+                            id={post.id}
+                            title={post.title}
+                            date={post.date}
+                            tags={post.tags}
+                            description={post.description}
+                            slug={post.slug}
+                        />
                     </div>
                 ))}
             </main>

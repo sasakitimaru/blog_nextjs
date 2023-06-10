@@ -1,10 +1,7 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from './article.module.scss'
 import Link from 'next/link';
 import { Post } from '../../lib/notionAPI';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { FacebookShareButton, TwitterShareButton, InstapaperShareButton, LineShareButton } from 'react-share';
 import Tags from '../Post/components/Tags';
 import { MdStringObject } from 'notion-to-md/build/types';
@@ -130,10 +127,8 @@ const Article = ({ post, mdString, recordMap }: ArticleProps) => {
                 recordMap={recordMap}
                 fullPage={true}
                 darkMode={false}
-                header={<NotionPageHeader block={null} setHeaderHeight={setHeaderHeight} />}
                 components={components}
                 disableHeader={true}
-                searchNotion={isSearchEnabled ? searchNotion : null}
             />
             {/* </div> */}
             <div className={styles['article-share-title']}>Share</div>
