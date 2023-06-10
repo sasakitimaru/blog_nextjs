@@ -15,7 +15,7 @@ const Search = ({ block }: SeachProps) => {
                 onClick={() => setModalVisible(true)}
                 className={`${styles['search-button']} ${styles['header-icon']}`}
             >
-                <FaSearch size={20} />
+                <FaSearch size={25} />
             </button>
         </div>
     )
