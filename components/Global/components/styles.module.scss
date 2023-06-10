@@ -29,7 +29,7 @@
 
       .layout-title {
         @media screen and (max-width: 768px) {
-          margin-right: 50px;
+          margin-right: 20px;
         }
       }
 
@@ -64,7 +64,7 @@
           width: 10%;
           font-size: 24px;
           font-weight: 700;
-          padding-left: 30px;
+          padding-left: 20px;
 
         }
 
@@ -72,9 +72,9 @@
           border-bottom: none;
         }
 
-        .layout-icon {
-          padding-right: 20px;
-        }
+        // .layout-icon {
+        //   // padding-right: 20px;
+        // }
       }
     }
   }
@@ -178,7 +178,8 @@
 
 .header-icon {
   color: #fff;
-
+  margin-top: 10px;
+  
   &:hover {
     color: rgb(147, 146, 146);
   }
