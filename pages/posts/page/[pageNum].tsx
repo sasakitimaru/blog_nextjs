@@ -6,6 +6,7 @@ import styles from '../../Home.module.scss';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import PageNation from '../../../components/PageNation/PageNation';
 import { MapDetail } from '../../../interfaces';
+import { validateTime } from '../..';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const response = await getAllPosts();
@@ -30,7 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             pageNum: params.pageNum,
             recordMap,
         },
-        revalidate:  Number(process.env.NEXT_PUBLIC_REVALIDATE)
+        revalidate:  validateTime
     };
 };
 

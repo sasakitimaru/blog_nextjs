@@ -7,6 +7,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import PageNation from '../../../../../components/PageNation/PageNation';
 import Tags from '../../../../../components/Post/components/Tags';
 import { MapDetail } from '../../../../../interfaces';
+import { validateTime } from '../../../..';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const response = await getAllPosts();
@@ -40,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             allTags,
             recordMap,
         },
-        revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
+        revalidate: validateTime
     };
 };
 

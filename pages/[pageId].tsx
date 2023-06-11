@@ -9,6 +9,7 @@ import Layout from '../components/Global/Layout'
 import Article from '../components/Article/Article'
 import Link from 'next/link'
 import { getAllTags, getSearchedPosts } from '../lib/notionAPI'
+import { validateTime } from '.'
 
 export const getStaticProps: GetStaticProps<PageProps, Params> = async (
   context
@@ -25,7 +26,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
         recordMap: ('recordMap' in response) ? response.recordMap : null,
         allTags,
       },
-      revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE)
+      revalidate: validateTime
     }
   } catch (err) {
     console.error('page error', domain, rawPageId, err)

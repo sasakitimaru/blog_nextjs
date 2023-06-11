@@ -8,6 +8,8 @@ import PageNation from '../components/PageNation/PageNation';
 import { ExtendedRecordMap } from '../lib/types';
 import { MapDetail } from '../interfaces';
 
+export const validateTime = 3600;
+
 export const getStaticProps: GetStaticProps = async (pageNum) => {
   const allPosts = await getAllPosts();
   const allTags = await getAllTags();
@@ -19,7 +21,7 @@ export const getStaticProps: GetStaticProps = async (pageNum) => {
       allTags,
       recordMap,
     },
-    revalidate:  Number(process.env.NEXT_PUBLIC_REVALIDATE)
+    revalidate:  validateTime
   };
 };
 

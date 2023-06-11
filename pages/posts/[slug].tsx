@@ -6,6 +6,7 @@ import { MdStringObject } from 'notion-to-md/build/types';
 import styles from './slug.module.scss'
 import Link from 'next/link';
 import { ExtendedRecordMap } from 'notion-types';
+import { validateTime } from '..';
 
 interface PostProps {
   post: _Post;
@@ -42,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       recordMap,
       pageId,
     },
-    revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
+    revalidate: validateTime
   };
 };
 
