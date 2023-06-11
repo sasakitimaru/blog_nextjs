@@ -436,3 +436,7 @@
   display: inline;
   color: #b5b5b5
 }
+
+.notion-h{
+  word-break: keep-all;
+}
