@@ -64,7 +64,7 @@ const ArticleListPerPageNum = ({ allPosts, tag, pageNum, allTags, recordMap }: A
     const sumPageNum = Math.ceil(filterdPosts.length / pageNumToShow);
 
     return (
-        <Layout title={`ささきちDev | タグ:${tag}`} allTags={allTags} recordMap={recordMap}>
+        <Layout title={`ささきちDev | タグ:${tag}`} allTags={allTags}>
             <main className={styles['home-container']}>
                 <div className={styles['home-filterdtagcontainer']}>
                     <p>{`検索タグ：`}</p>

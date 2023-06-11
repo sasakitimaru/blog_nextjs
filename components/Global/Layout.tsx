@@ -42,6 +42,16 @@ const Layout = ({ children, title = 'sasakitiDev', allTags, pageId }: Props) => 
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MF80XH1G9H"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-MF80XH1G9H');
+        `,
+        }}></script>
       </Head>
       <div className={styles['layout-container']}>
         <ModalContext.Provider value={{ isModalVisible, setModalVisible }}>
@@ -66,7 +76,7 @@ const Layout = ({ children, title = 'sasakitiDev', allTags, pageId }: Props) => 
               {allTags && <Tags tags={allTags} />}
             </div>
           </div>
-          {pageId && pageId.length > 0 && <Comment pageId={pageId}/>}
+          {pageId && pageId.length > 0 && <Comment pageId={pageId} />}
         </div>
       </footer>
     </div>

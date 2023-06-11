@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             pageNum: params.pageNum,
             recordMap,
         },
-        revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
+        revalidate:  Number(process.env.NEXT_PUBLIC_REVALIDATE)
     };
 };
 

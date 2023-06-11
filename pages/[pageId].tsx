@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
         recordMap: ('recordMap' in response) ? response.recordMap : null,
         allTags,
       },
-      revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
+      revalidate: Number(process.env.NEXT_PUBLIC_REVALIDATE)
     }
   } catch (err) {
     console.error('page error', domain, rawPageId, err)
