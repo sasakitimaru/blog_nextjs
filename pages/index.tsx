@@ -8,6 +8,8 @@ import PageNation from '../components/PageNation/PageNation';
 import { ExtendedRecordMap } from '../lib/types';
 import { MapDetail } from '../interfaces';
 
+export const validateTime = 3600;
+
 export const getStaticProps: GetStaticProps = async (pageNum) => {
   const allPosts = await getAllPosts();
   const allTags = await getAllTags();
@@ -19,14 +21,14 @@ export const getStaticProps: GetStaticProps = async (pageNum) => {
       allTags,
       recordMap,
     },
-    revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
+    revalidate:  validateTime
   };
 };
 
 const Home = ({ allPosts,allTags,recordMap }: MapDetail) => {
   const sumPageNum = Math.ceil(allPosts.length / 8);
   return (
-    <Layout title="ささきちDev" allTags={allTags} recordMap={recordMap}>
+    <Layout title="ささきちDev" allTags={allTags}>
       <main className={styles['home-container']}>
         <h1 className={styles['home-h1']}>Hello Developers 👋</h1>
         {allPosts.map((post) => (

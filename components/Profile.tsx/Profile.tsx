@@ -11,8 +11,8 @@ const Profile = () => {
             <div className={styles['profile-image-container']}>
                 <img src="/IMG_8346.jpeg" alt="profile" className={styles['profile-image']} />
             </div>
-            <p>Webエンジニア ではなく普段はネットワークエンジニアとしてPMをしています。
-                しごおわと休みの日にポチポチコーディングしています。開発のお仕事に転職しようか考え中。
+            <p>Webエンジニア...ではなく普段はネットワークエンジニアとしてPMをしています。
+                しごおわと休みの日にReactとかPythonとかでポチポチコーディングしています。切実に開発のお仕事がしたい。
             </p>
             <div className={styles['profile-icon-container']}>
                 <div className={`${styles['icon']} ${styles['twitter-icon']}`}>

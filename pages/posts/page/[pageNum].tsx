@@ -6,6 +6,7 @@ import styles from '../../Home.module.scss';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import PageNation from '../../../components/PageNation/PageNation';
 import { MapDetail } from '../../../interfaces';
+import { validateTime } from '../..';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const response = await getAllPosts();
@@ -30,7 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             pageNum: params.pageNum,
             recordMap,
         },
-        revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
+        revalidate:  validateTime
     };
 };
 
@@ -46,7 +47,7 @@ const ArticleListPerPageNum = ({ allPosts, pageNum, allTags, recordMap }: Articl
     const slicedPosts = allPosts.slice(fixedPageNum, fixedPageNum + pageNumToShow);
 
     return (
-        <Layout title="ささきちDev | 記事一覧" allTags={allTags} recordMap={recordMap}>
+        <Layout title="ささきちDev | 記事一覧" allTags={allTags}>
             <main className={styles['home-container']}>
                 {slicedPosts.map((post) => (
                     <div

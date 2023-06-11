@@ -6,12 +6,14 @@ import { MdStringObject } from 'notion-to-md/build/types';
 import styles from './slug.module.scss'
 import Link from 'next/link';
 import { ExtendedRecordMap } from 'notion-types';
+import { validateTime } from '..';
 
 interface PostProps {
   post: _Post;
   mdString: MdStringObject;
   allTags: Tag[];
   recordMap: ExtendedRecordMap;
+  pageId: string;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -31,6 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = response.metadata;
   const mdString = response.mdString;
   const recordMap = await getPageDetails(post.id);
+  const pageId = post.id;
 
   return {
     props: {
@@ -38,16 +41,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       mdString,
       allTags,
       recordMap,
+      pageId,
     },
-    revalidate: 60 * 5, // SSGだけど60秒*60ごとに更新する。
+    revalidate: validateTime
   };
 };
 
-const Post = ({ post, mdString, allTags, recordMap }: PostProps) => {
-  console.log(mdString);
+const Post = ({ post, mdString, allTags, recordMap, pageId }: PostProps) => {
   return (
-    <Layout title={post.title} allTags={allTags}>
-      <Article post={post} mdString={mdString} recordMap={recordMap}/>
+    <Layout title={post.title} allTags={allTags} pageId={pageId}>
+      <Article post={post} mdString={mdString} recordMap={recordMap} />
       <Link className={styles['slug-back']} href="/">
         <div >←記事一覧に戻る</div>
       </Link>

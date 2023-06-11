@@ -102,10 +102,10 @@
 
     .layout-inputcontainer {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 300px;
+        // width: 300px;
         background-color: #fff;
         /* 背景色を同じにする */
         border: 1px solid #ccc;
@@ -121,6 +121,7 @@
             /* 個々の入力要素の境界線を削除 */
             padding: 5px;
             flex-grow: 1;
+            font-size: 16px;
 
             /* 入力エリアを全幅に広げる */
             &:focus {
@@ -129,19 +130,21 @@
         }
 
         .layout-button {
-            border-top-right-radius: 5px;
+            // border-top-right-radius: 5px;
             /* 元のborder-radiusを右上と右下に適用 */
-            border-bottom-right-radius: 5px;
+            // border-bottom-right-radius: 5px;
             border: none;
             /* 個々のボタン要素の境界線を削除 */
-            border-left: 1px solid #545454;
+            border-top: 1px solid #545454;
             /* ボタンの左側に境界線を設定 */
-            width: 15%;
+            width: 100%;
             padding: 5px;
-            background-color: #fff;
+            // background-color: #1b70ca;
             /* ボタンの背景色を同じにする */
+            color: #000;
 
             &:hover {
+                color: #5d5d5d;
                 cursor: pointer;
             }
         }
@@ -209,4 +212,50 @@
             right: -80%;
         }
     }
+}
+
+.layout-commentlist{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .layout-comment{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom: #5d5d5d solid 1px;
+
+
+        .layout-text{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 80%;
+            margin-left: 10px;
+            margin-right: 10px;
+
+        }
+        .layout-date{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 10%;
+            margin-left: 10px;
+            margin-right: 10px;
+            color: #a7a7a7;
+            font-size: 12px;
+
+        }
+    }
+
 }
