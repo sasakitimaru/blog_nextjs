@@ -157,11 +157,11 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   .notion-search-button {
     /* display: none !important; */
-  }
-}
+  /* } */
+/* } */
 
 .notion .notion-page-icon-cover {
   margin-left: auto;
@@ -430,4 +430,9 @@
   &:hover {
     background: rgba(55, 53, 47, 0.08);
   }
+}
+
+.notion-link{
+  display: inline;
+  color: #b5b5b5
 }

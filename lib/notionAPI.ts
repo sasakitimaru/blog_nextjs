@@ -1,6 +1,7 @@
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md'
 import { NotionAPI } from 'notion-client';
+import { isDev } from './config';
 
 export interface Tag {
     id: string;
@@ -31,22 +32,36 @@ const notion = new Client({
 const n2md = new NotionToMarkdown({ notionClient: notion });
 
 export const getAllPosts: GetAllPosts = async () => {
-    const posts = await notion.databases.query({
-        database_id: process.env.NOTION_DATABASE_ID,
-        page_size: 100,
-        filter: {
-            property: 'Published',
-            checkbox: {
-                equals: true,
+    let posts;
+    if (isDev) {
+        posts = await notion.databases.query({
+            database_id: process.env.NOTION_DATABASE_ID,
+            page_size: 100,
+            sorts: [
+                {
+                    property: 'Date',
+                    direction: 'descending',
+                },
+            ],
+        });
+    } else {
+        posts = await notion.databases.query({
+            database_id: process.env.NOTION_DATABASE_ID,
+            page_size: 100,
+            filter: {
+                property: 'Published',
+                checkbox: {
+                    equals: true,
+                },
             },
-        },
-        sorts: [
-            {
-                property: 'Date',
-                direction: 'descending',
-            },
-        ],
-    });
+            sorts: [
+                {
+                    property: 'Date',
+                    direction: 'descending',
+                },
+            ],
+        });
+    }
     const allPosts = posts.results;
     return allPosts.map((post) => {
         return getPageMetaData(post);
@@ -80,7 +95,7 @@ export const getSinglePost = async (slug) => {
     const md = await n2md.pageToMarkdown(page.id);
     const mdString = n2md.toMarkdownString(md);
     const metadata = getPageMetaData(page);
-    return { 
+    return {
         metadata,
         mdString,
     };

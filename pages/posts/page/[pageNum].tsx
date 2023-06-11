@@ -46,7 +46,7 @@ const ArticleListPerPageNum = ({ allPosts, pageNum, allTags, recordMap }: Articl
     const slicedPosts = allPosts.slice(fixedPageNum, fixedPageNum + pageNumToShow);
 
     return (
-        <Layout title="ささきちDev | 記事一覧" allTags={allTags} recordMap={recordMap}>
+        <Layout title="ささきちDev | 記事一覧" allTags={allTags}>
             <main className={styles['home-container']}>
                 {slicedPosts.map((post) => (
                     <div

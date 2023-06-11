@@ -16,6 +16,7 @@
     "axios": "^1.4.0",
     "expiry-map": "^2.0.0",
     "isomorphic-unfetch": "^4.0.2",
+    "mongodb": "^5.6.0",
     "next": "latest",
     "notion-client": "^6.16.0",
     "notion-to-md": "^3.0.1",
