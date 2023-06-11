@@ -160,7 +160,7 @@
 /* @media only screen and (max-width: 600px) {
   .notion-search-button {
     /* display: none !important; */
-  /* } */
+/* } */
 /* } */
 
 .notion .notion-page-icon-cover {
@@ -362,14 +362,14 @@
 
 /* .notion-header {
   /* background: #b6b6b6; */
-  /* backdrop-filter: saturate(180%) blur(16px); */
-  /* display: none; */
+/* backdrop-filter: saturate(180%) blur(16px); */
+/* display: none; */
 /* } */
 
 /* .dark-mode .notion-header {
   background: transparent;
   box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1); */
-  /* backdrop-filter: saturate(180%) blur(8px); */
+/* backdrop-filter: saturate(180%) blur(8px); */
 /* }  */
 
 /* Workaround for Firefox not supporting backdrop-filter yet */
@@ -399,7 +399,7 @@
   overflow: hidden !important;
 }
 
-.notion-app{
+.notion-app {
   min-height: 0;
 }
 
@@ -415,6 +415,7 @@
   padding: 0.5rem;
   border-radius: 3px;
   transition: background-color 0.12s ease-in 0s;
+
   &:hover {
     background-color: rgba(197, 196, 196, 0.382);
   }
@@ -432,11 +433,28 @@
   }
 }
 
-.notion-link{
+.notion-link {
   display: inline;
   color: #b5b5b5
 }
 
-.notion-h{
+.notion-h {
+  position: relative;
+  display: block;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 3px 2px;
+  margin-bottom: 1px;
+  max-width: 100%;
+  white-space: pre-wrap;
   word-break: keep-all;
+
+}
+
+@media (max-width: 400px) {
+
+  .notion-h-title {
+    overflow-wrap: break-word;
+
+  }
 }
