@@ -5,6 +5,7 @@ import { ModalContext } from '../Layout'
 import { searchNotion } from '../../../lib/search-notion'
 import { SearchResults } from '../../../interfaces'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Modal = () => {
     const [query, setQuery] = useState('')
@@ -12,6 +13,7 @@ const Modal = () => {
     const [isWriting, setIsWriting] = useState(false)
     const [searchResults, setSearchResults] = useState<SearchResults>(null)
     const { setModalVisible } = useContext(ModalContext)
+    const router = useRouter()
 
     const inputRef = useRef(null)
     const searchTimeout = useRef(null)
@@ -32,8 +34,18 @@ const Modal = () => {
         }, 500)
     }, [query])
 
+    // useEffect(() => {
+    //     return () => setModalVisible(false)
+    // }, [])
+
     useEffect(() => {
-        return () => setModalVisible(false)
+        const handleRouteChange = () => {
+            setModalVisible(false)
+        }
+        router.events.on('routeChangeComplete', handleRouteChange)
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange)
+        }
     }, [])
 
     return (
@@ -65,7 +77,10 @@ const Modal = () => {
                 </div>
             </div>
             { searchResults && searchResults.results.length > 0 &&
-                <div className={styles['result-container']} onClick={(e) => e.stopPropagation()}>
+                <div 
+                    className={styles['result-container']} 
+                    onClick={(e) => e.stopPropagation()}
+                >
                     {
                         searchResults.results.map((result, index) => {
                             return (
